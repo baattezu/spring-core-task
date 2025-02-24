@@ -11,9 +11,15 @@ import java.util.List;
 public class TraineeDAO {
 
     private static final String NAMESPACE = "trainee";
-    @Autowired
+
+
     private Storage storage;
     private IdGenerator idGenerator;
+
+    @Autowired
+    public void setStorage(Storage storage) {
+        this.storage = storage;
+    }
 
     @Autowired
     public void setIdGenerator(IdGenerator idGenerator) {
@@ -22,7 +28,6 @@ public class TraineeDAO {
 
     public Trainee save(Trainee trainee) {
         if (trainee.getTraineeId() == null) {
-            trainee.setUserId(idGenerator.nextId("user"));
             trainee.setTraineeId(idGenerator.nextId(NAMESPACE));
         }
         storage.save(NAMESPACE, trainee.getTraineeId(), trainee);

@@ -11,14 +11,21 @@ import java.util.List;
 public class TrainingDAO {
 
     private static final String NAMESPACE = "training";
-    @Autowired
+
     private Storage storage;
     private IdGenerator idGenerator;
+
+    @Autowired
+    public void setStorage(Storage storage) {
+        this.storage = storage;
+    }
 
     @Autowired
     public void setIdGenerator(IdGenerator idGenerator) {
         this.idGenerator = idGenerator;
     }
+
+
     public Training get(Long id) {
         return storage.findById(NAMESPACE, id);
     }

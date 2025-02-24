@@ -1,7 +1,9 @@
 package org.saltaonelove.service;
 
 import org.saltaonelove.dao.TrainingDAO;
+import org.saltaonelove.dao.TrainingTypeDAO;
 import org.saltaonelove.model.Training;
+import org.saltaonelove.model.TrainingType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +12,13 @@ import java.util.List;
 @Service
 public class TrainingService {
 
-    private final TrainingDAO trainingDAO;
-
     @Autowired
-    public TrainingService(TrainingDAO trainingDAO) {
-        this.trainingDAO = trainingDAO;
+    private TrainingDAO trainingDAO;
+    @Autowired
+    private TrainingTypeDAO trainingTypeDAO;
+
+    public TrainingType addTrainingType(TrainingType trainingType) {
+        return trainingTypeDAO.save(trainingType);
     }
 
     public Training createTraining(Training training) {

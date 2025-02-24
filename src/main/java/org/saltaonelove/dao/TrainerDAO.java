@@ -10,18 +10,23 @@ import java.util.List;
 @Repository
 public class TrainerDAO {
     private static final String NAMESPACE = "trainer";
-    @Autowired
+
     private Storage storage;
     private IdGenerator idGenerator;
+
+    @Autowired
+    public void setStorage(Storage storage) {
+        this.storage = storage;
+    }
 
     @Autowired
     public void setIdGenerator(IdGenerator idGenerator) {
         this.idGenerator = idGenerator;
     }
 
+
     public Trainer save(Trainer trainer) {
         if (trainer.getTrainerId() == null) {
-            trainer.setUserId(idGenerator.nextId("user"));
             trainer.setTrainerId(idGenerator.nextId(NAMESPACE));
         }
         storage.save(NAMESPACE, trainer.getTrainerId(), trainer);

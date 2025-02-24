@@ -11,9 +11,14 @@ import java.util.List;
 public class TrainingTypeDAO {
 
     private static final String NAMESPACE = "trainingType";
-    @Autowired
+
     private Storage storage;
     private IdGenerator idGenerator;
+
+    @Autowired
+    public void setStorage(Storage storage) {
+        this.storage = storage;
+    }
 
     @Autowired
     public void setIdGenerator(IdGenerator idGenerator) {
@@ -27,10 +32,11 @@ public class TrainingTypeDAO {
         return storage.findById(NAMESPACE, id);
     }
 
-    public void save(TrainingType trainingType) {
+    public TrainingType save(TrainingType trainingType) {
         if (trainingType.getId() == null) {
             trainingType.setId(idGenerator.nextId(NAMESPACE));
         }
         storage.save(NAMESPACE, trainingType.getId(), trainingType);
+        return trainingType;
     }
 }

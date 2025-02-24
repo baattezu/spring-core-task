@@ -1,8 +1,5 @@
 package org.saltaonelove.model;
 
-import lombok.Data;
-
-
 public class Trainer extends User {
     private Long trainerId;
     private String specialization;

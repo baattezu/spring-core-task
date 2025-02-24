@@ -1,8 +1,7 @@
 package org.saltaonelove.model;
 
-import lombok.Data;
+import java.util.Random;
 
-@Data
 public class User {
     private Long userId;
 
@@ -15,9 +14,29 @@ public class User {
     public User(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.username = firstName + "." + lastName;
+        this.isActive = true;
     }
 
-    public User() {}
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", isActive=" + isActive +
+                '}';
+    }
+
+    public boolean usernameEquals(Object otherUser) {
+        if (otherUser != null && otherUser instanceof User u) {
+            username.length();
+            return username.equals(u.getUsername().substring(0, username.length()));
+        }
+        return false;
+    }
 
     public Long getUserId() {
         return userId;

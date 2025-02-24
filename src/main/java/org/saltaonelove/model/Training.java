@@ -23,6 +23,19 @@ public class Training {
     }
     public Training(){}
 
+    @Override
+    public String toString() {
+        return "Training{ \n" +
+                "trainingId=" + trainingId +
+                ",\n trainerId=" + trainerId +
+                ",\n traineeId=" + traineeId +
+                ",\n name='" + name + '\'' +
+                ",\n trainingType=" + trainingType +
+                ",\n date=" + date +
+                ",\n duration=" + duration +
+                '}';
+    }
+
     public Long getTrainingId() {
         return trainingId;
     }
