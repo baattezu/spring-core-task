@@ -3,11 +3,11 @@ package org.saltaonelove.dao;
 import org.saltaonelove.dao.utils.IdGenerator;
 import org.saltaonelove.dao.utils.Storage;
 import org.saltaonelove.model.User;
+import org.saltaonelove.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Random;
 
 @Repository
 public class UserDAO {
@@ -17,6 +17,7 @@ public class UserDAO {
 
     private Storage storage;
     private IdGenerator idGenerator;
+    private UserUtil userUtil;
 
     @Autowired
     public void setStorage(Storage storage) {
@@ -28,11 +29,16 @@ public class UserDAO {
         this.idGenerator = idGenerator;
     }
 
+    @Autowired
+    public void setUserUtil(UserUtil userUtil) {
+        this.userUtil = userUtil;
+    }
+
     public User save(User user) {
         if (user.getUserId() == null) {
             user.setUserId(idGenerator.nextId(NAMESPACE));
-            generateUsername(user);
-            generateRandomPassword(user);
+            user.setUsername(userUtil.generateUsername(user, storage.findAll(NAMESPACE)));
+            user.setPassword(userUtil.generateRandomPassword());
         }
         storage.save(NAMESPACE, user.getUserId(), user);
         return user;
@@ -55,22 +61,4 @@ public class UserDAO {
         return storage.findAll(NAMESPACE);
     }
 
-    private void generateUsername(User user) {
-        long serial = storage.findAll(NAMESPACE).stream().filter(user::usernameEquals).count();
-        if (serial != 0){
-            user.setUsername(user.getUsername() + serial);
-        }
-    }
-
-    private void generateRandomPassword(User user) {
-        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        Random random = new Random();
-        StringBuilder password = new StringBuilder(10);
-
-        for (int i = 0; i < 10; i++) {
-            password.append(chars.charAt(random.nextInt(chars.length())));
-        }
-
-        user.setPassword(password.toString());
-    }
 }

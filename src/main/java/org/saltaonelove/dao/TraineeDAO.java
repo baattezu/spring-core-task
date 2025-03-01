@@ -3,6 +3,8 @@ package org.saltaonelove.dao;
 import org.saltaonelove.dao.utils.IdGenerator;
 import org.saltaonelove.dao.utils.Storage;
 import org.saltaonelove.model.Trainee;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.List;
 public class TraineeDAO {
 
     private static final String NAMESPACE = "trainee";
+    private static final Logger log = LoggerFactory.getLogger(TraineeDAO.class);
 
 
     private Storage storage;
@@ -31,11 +34,7 @@ public class TraineeDAO {
             trainee.setTraineeId(idGenerator.nextId(NAMESPACE));
         }
         storage.save(NAMESPACE, trainee.getTraineeId(), trainee);
-        return trainee;
-    }
-
-    public Trainee update(Trainee trainee) {
-        storage.save(NAMESPACE, trainee.getTraineeId(), trainee);
+        log.info("Saved trainee: {}", trainee);
         return trainee;
     }
 

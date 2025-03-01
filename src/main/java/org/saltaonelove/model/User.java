@@ -1,8 +1,12 @@
 package org.saltaonelove.model;
 
-import java.util.Random;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Objects;
 
 public class User {
+    private static final Logger log = LoggerFactory.getLogger(User.class);
     private Long userId;
 
     private String firstName;
@@ -11,12 +15,16 @@ public class User {
     private String password;
     private boolean isActive;
 
+    public User() {
+    }
+
     public User(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = firstName + "." + lastName;
         this.isActive = true;
     }
+
 
     @Override
     public String toString() {
@@ -30,10 +38,21 @@ public class User {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return isActive == user.isActive && Objects.equals(userId, user.userId) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(username, user.username) && Objects.equals(password, user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, firstName, lastName, username, password, isActive);
+    }
+
     public boolean usernameEquals(Object otherUser) {
         if (otherUser != null && otherUser instanceof User u) {
-            username.length();
-            return username.equals(u.getUsername().substring(0, username.length()));
+            return username.equals(u.getUsername().replaceAll("\\d+", ""));
         }
         return false;
     }

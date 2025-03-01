@@ -38,10 +38,6 @@ public class TrainingDAO {
         return training;
     }
 
-    public void update(Training training) {
-        storage.save(NAMESPACE, training.getTrainingId(), training);
-    }
-
     public void delete(Long id) {
         storage.delete(NAMESPACE, id);
     }

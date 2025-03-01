@@ -4,6 +4,9 @@ public class Trainer extends User {
     private Long trainerId;
     private String specialization;
 
+    public Trainer(){
+    }
+
     public Trainer(String firstName, String lastName) {
         super(firstName, lastName);
     }
@@ -11,6 +14,14 @@ public class Trainer extends User {
     public Trainer(String firstName, String lastName, String specialization) {
         super(firstName, lastName);
         this.specialization = specialization;
+    }
+
+    @Override
+    public String toString() {
+        return "Trainer{" +
+                "trainerId=" + trainerId +
+                ", specialization='" + specialization + '\'' +
+                '}';
     }
 
     public Long getTrainerId() {
@@ -28,4 +39,5 @@ public class Trainer extends User {
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
     }
+
 }

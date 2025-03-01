@@ -1,22 +1,24 @@
 package org.saltaonelove.facade;
 
 
+import org.saltaonelove.dto.TraineeDTO;
+import org.saltaonelove.dto.TrainerDTO;
 import org.saltaonelove.model.Trainee;
 import org.saltaonelove.model.Trainer;
 import org.saltaonelove.model.Training;
-import org.saltaonelove.model.TrainingType;
 import org.saltaonelove.service.TraineeService;
 import org.saltaonelove.service.TrainerService;
 import org.saltaonelove.service.TrainingService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Component
 public class GymFacade {
+    private static final Logger log = LoggerFactory.getLogger(GymFacade.class);
     private final TraineeService traineeService;
     private final TrainerService trainerService;
     private final TrainingService trainingService;
@@ -35,26 +37,38 @@ public class GymFacade {
         return trainerService.registerTrainer(firstName, lastName);
     }
 
-    public void registerTraining(Trainer trainer, Trainee trainee, LocalDate date, Duration duration, String description, String trainingType) {
+    public void registerTraining(Long trainerId, Long traineeId, LocalDate date, Duration duration, String description, String trainingType) {
         Training training = new Training();
-        training.setTraineeId(trainee.getTraineeId());
-        training.setTrainerId(trainer.getTrainerId());
+        training.setTraineeId(traineeId);
+        training.setTrainerId(trainerId);
         training.setName(description);
         training.setDate(date);
         training.setDuration(duration);
+        trainingService.addTrainingType(training, trainingType);
         trainingService.createTraining(training);
+    }
+
+    public Trainer updateTrainer(Long trainerId, TrainerDTO trainerDto) {
+        return trainerService.updateTrainer(trainerId, trainerDto);
+    }
+
+    public Trainee updateTrainee(Long traineeId, TraineeDTO traineeDto) {
+        return traineeService.updateTrainee(traineeId, traineeDto);
     }
 
     public void showTrainees() {
         traineeService.listTrainees().forEach(t ->
-                System.out.println(t.getUsername() + " - " + t.getPassword()));
-    }
-    public void showTrainers() {
-        trainerService.listTrainers().forEach(t ->
-                System.out.println(t.getUsername() + " - " + t.getPassword()));
+                log.info("Trainee:" + t.getUsername() + " - " + t.getPassword()));
     }
 
+    public void showTrainers() {
+        trainerService.listTrainers().forEach(t ->
+                log.info("Trainer:" + t.getUsername() + " - " + t.getPassword()));
+    }
+
+
     public void showTrainings() {
-        trainingService.listTrainings().forEach(System.out::println);
+        trainingService.listTrainings().forEach(t ->
+                log.info("Training:" + t.getName() + " - " + t.getDate() + " - " + t.getDuration()));
     }
 }

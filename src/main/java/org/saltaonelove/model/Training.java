@@ -13,7 +13,7 @@ public class Training {
     private LocalDate date;
     private Duration duration;
 
-    public Training( Long trainerId, Long traineeId, String name, TrainingType trainingType, LocalDate date, Duration duration) {
+    public Training(Long trainerId, Long traineeId, String name, TrainingType trainingType, LocalDate date, Duration duration) {
         this.trainerId = trainerId;
         this.traineeId = traineeId;
         this.name = name;
@@ -21,7 +21,9 @@ public class Training {
         this.date = date;
         this.duration = duration;
     }
-    public Training(){}
+
+    public Training() {
+    }
 
     @Override
     public String toString() {
@@ -30,7 +32,7 @@ public class Training {
                 ",\n trainerId=" + trainerId +
                 ",\n traineeId=" + traineeId +
                 ",\n name='" + name + '\'' +
-                ",\n trainingType=" + trainingType +
+                ",\n trainingType=" + trainingType.getName() +
                 ",\n date=" + date +
                 ",\n duration=" + duration +
                 '}';

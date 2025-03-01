@@ -1,12 +1,15 @@
 package org.saltaonelove.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-public class Trainee extends User{
+public class Trainee extends User {
     private Long traineeId;
     private LocalDate dateOfBirth;
     private String address;
 
+    public Trainee() {
+    }
 
     public Trainee(String firstName, String lastName) {
         super(firstName, lastName);
@@ -14,9 +17,17 @@ public class Trainee extends User{
 
     public Trainee(String firstName, String lastName, LocalDate dateOfBirth, String address) {
         super(firstName, lastName);
-        this.traineeId = traineeId;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Trainee{" +
+                "traineeId=" + traineeId +
+                ", dateOfBirth=" + dateOfBirth +
+                ", address='" + address + '\'' +
+                '}';
     }
 
     public Long getTraineeId() {
@@ -33,6 +44,10 @@ public class Trainee extends User{
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     public String getAddress() {

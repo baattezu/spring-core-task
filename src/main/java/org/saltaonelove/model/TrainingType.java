@@ -5,6 +5,9 @@ public class TrainingType {
 
     private String name;
 
+    public TrainingType() {
+    }
+
     public TrainingType(String name) {
         this.name = name;
     }
