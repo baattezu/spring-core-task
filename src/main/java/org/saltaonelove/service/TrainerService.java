@@ -78,5 +78,4 @@ public class TrainerService {
     public List<Trainer> listTrainers() {
         return trainerDAO.findAll();
     }
-
 }

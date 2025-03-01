@@ -71,4 +71,8 @@ public class GymFacade {
         trainingService.listTrainings().forEach(t ->
                 log.info("Training:" + t.getName() + " - " + t.getDate() + " - " + t.getDuration()));
     }
+
+    public void deleteTrainee(Long traineeId) {
+        traineeService.deleteTrainee(traineeId);
+    }
 }

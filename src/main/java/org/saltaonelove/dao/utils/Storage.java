@@ -11,7 +11,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class Storage {
-    private static final Logger log = LoggerFactory.getLogger(Storage.class);
     private final Map<String, Map<Long, Object>> storage = new ConcurrentHashMap<>();
 
 

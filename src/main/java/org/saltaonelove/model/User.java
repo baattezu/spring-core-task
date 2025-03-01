@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Objects;
 
 public class User {
-    private static final Logger log = LoggerFactory.getLogger(User.class);
     private Long userId;
 
     private String firstName;

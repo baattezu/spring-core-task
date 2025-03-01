@@ -90,6 +90,10 @@ public class TraineeService {
         return traineeDAO.save(trainee);
     }
 
+    public void deleteTrainee(Long id) {
+        traineeDAO.delete(id);
+    }
+
 
 }
 

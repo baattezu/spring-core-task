@@ -21,7 +21,6 @@ import java.util.Map;
 @Service
 public class TrainingService {
 
-    private static final Logger log = LoggerFactory.getLogger(TrainingService.class);
     @Autowired
     private TrainingDAO trainingDAO;
     @Autowired
